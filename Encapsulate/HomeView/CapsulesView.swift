@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CapsulesView: View {
     let capsules : [Capsule]
+    let proxy : ScrollViewProxy
     
     var body: some View {
         allCapsulesListView
@@ -28,9 +29,10 @@ extension CapsulesView {
     }
     
     private var capsulesListView : some View {
-        VStack(spacing: 25) {
+        VStack(spacing: 30) {
             ForEach(capsules) { capsule in
                 capsuleRow(capsule)
+                    .id(capsule)
             }
         }
     }
@@ -42,7 +44,7 @@ extension CapsulesView {
         VStack(alignment: .leading, spacing: 5) {
             capsuleRowTitle(capsule.title, capsule.startDate, capsule.endDate)
             
-            capsuleImagesView(capsule.images())
+            capsuleImagesView(capsule.capsuleImages)
         }
     }
     
@@ -62,15 +64,31 @@ extension CapsulesView {
         .padding(.horizontal)
     }
     
-    private func capsuleImagesView(_ capsuleImages : [Image]) -> some View {
+    private func capsuleImagesView(_ capsuleImages : [CapsuleImage]) -> some View {
         ScrollView(.horizontal) {
             HStack {
-                ForEach(Array(zip(capsuleImages.indices, capsuleImages)), id: \.0) { (_, image) in
-                    image
-                        .resizable()
-                        .frame(width: 200)
-                        .frame(height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                ForEach(Array(zip(capsuleImages.indices, capsuleImages)), id: \.0) { (_, capsuleImage) in
+                    if let image = capsuleImage.image() {
+                        image
+                            .resizable()
+                            .frame(width: 200)
+                            .frame(height: 200)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .overlay(alignment: .topTrailing) {
+                                Button {
+                                    capsuleImage.isFavourite.toggle()
+                                } label: {
+                                    Image(systemName: capsuleImage.isFavourite ? "heart.fill" : "heart")
+                                        .font(.title3)
+                                        .foregroundStyle(.red)
+                                        .padding(5)
+                                        .symbolEffect(.bounce, value: capsuleImage.isFavourite)
+                                        .background(Color.darkGrayColor.opacity(0.6))
+                                        .cornerRadius(8, corners: [.bottomLeft, .topRight])
+                                }
+                                .buttonStyle(.plain)
+                            }
+                    }
                 }
             }
         }

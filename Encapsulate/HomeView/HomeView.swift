@@ -14,8 +14,6 @@ struct HomeView: View {
                 capsulesHomeView
             }
         }
-        .background(Color.backgroundColor.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 title("home_navigation_title")
@@ -50,15 +48,17 @@ extension HomeView {
     }
     
     private var capsulesHomeView : some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                HighlightCapsulesView(capsules: capsules)
-                    .padding(.vertical, 20)
-                
-                CapsulesView(capsules: capsules)
-                    .padding(.bottom)
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(spacing: 0) {
+                    HighlightCapsulesView(capsules: capsules, proxy: proxy)
+                        .padding(.vertical, 20)
+                    
+                    CapsulesView(capsules: capsules, proxy: proxy)
+                        .padding(.bottom)
+                }
+                .frame(maxHeight: .infinity)
             }
-            .frame(maxHeight: .infinity)
         }
     }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HighlightCapsulesView: View {
     let capsules : [Capsule]
+    let proxy : ScrollViewProxy
     
     var body: some View {
         highlightCapsulesView
@@ -30,6 +31,11 @@ extension HighlightCapsulesView {
             HStack(spacing: 0) {
                 ForEach(capsules) { capsule in
                     capsuleCardView(capsule)
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                proxy.scrollTo(capsule)
+                            }
+                        }
                 }
             }
             .scrollTargetLayout()

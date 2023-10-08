@@ -215,7 +215,3 @@ extension AddCapsuleSheetView {
         context.insert(viewModel.newCapsule)
     }
 }
-
-#Preview {
-    ContentView()
-}

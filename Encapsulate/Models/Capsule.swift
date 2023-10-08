@@ -3,25 +3,33 @@ import SwiftData
 
 @Model
 class Capsule : Identifiable {
-    let id : UUID = UUID()
+    @Attribute(.unique) let id : UUID = UUID()
     var title : String
     var startDate : Date
     var endDate : Date
-    var imagesData : [Data]
+    var capsuleImages : [CapsuleImage]
     
-    func images() -> [Image] {
-        var images = [Image]()
-        for imageData in imagesData {
-            guard let uiImage = UIImage(data: imageData) else { continue }
-            images.append(Image(uiImage: uiImage))
-        }
-        return images
-    }
-    
-    init(title: String, startDate: Date, endDate: Date, imagesData: [Data]) {
+    init(title: String, startDate: Date, endDate: Date, capsuleImages: [CapsuleImage]) {
         self.title = title
         self.startDate = startDate
         self.endDate = endDate
-        self.imagesData = imagesData
+        self.capsuleImages = capsuleImages
+    }
+}
+
+@Model
+class CapsuleImage : Identifiable {
+    var id : UUID = UUID()
+    var data : Data
+    var isFavourite : Bool
+    
+    func image() -> Image? {
+        guard let uiImage = UIImage(data: data) else { return nil }
+        return Image(uiImage: uiImage)
+    }
+    
+    init(data: Data, isFavourite: Bool) {
+        self.data = data
+        self.isFavourite = isFavourite
     }
 }

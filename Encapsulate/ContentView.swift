@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selection : AppScreen? = .home
+    
     var body: some View {
-        HomeNavigationStack()
+        AppTabView(selection: $selection)
     }
 }

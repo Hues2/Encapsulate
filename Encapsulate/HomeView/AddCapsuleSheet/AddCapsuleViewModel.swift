@@ -7,9 +7,10 @@ class AddCapsuleSheetViewModel {
     var newCapsule = Capsule(title: "",
                              startDate: Date(),
                              endDate: Date().plusOneDay() ?? Date(),
-                             imagesData: [])
-    var photos : [PhotosPickerItem] = []
-    var images : [Image] = []
+                             capsuleImages: [])
+    var photos = [PhotosPickerItem]()
+    var images = [Image]()
+    var capsuleImages = [CapsuleImage]()
 }
 
 extension AddCapsuleSheetViewModel {
@@ -25,9 +26,12 @@ extension AddCapsuleSheetViewModel {
                 }
             }
         }
+        self.newCapsule.capsuleImages = capsuleImages
     }
     
     private func saveImageData(_ imageData : Data) {
-        self.newCapsule.imagesData.append(imageData)
+        // When the images are first saved, they are by default, not favourites
+        let capsuleImage = CapsuleImage(data: imageData, isFavourite: false)
+        self.capsuleImages.append(capsuleImage)
     }
 }

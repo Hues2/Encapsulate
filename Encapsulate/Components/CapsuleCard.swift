@@ -61,13 +61,8 @@ extension CapsuleCard {
 
 extension CapsuleCard {
     private func setThumbnailImage(_ capsule : Capsule) -> Image? {
-        guard let imageData = capsule.imagesData.randomElement(),
-              let uiImage = UIImage(data: imageData) else { return nil }
+        guard let capsuleImage = capsule.capsuleImages.randomElement(),
+              let uiImage = UIImage(data: capsuleImage.data) else { return nil }
         return Image(uiImage: uiImage)
     }
-}
-
-#Preview {
-    CapsuleCard(capsule: Capsule(title: "Courtney & Jake Wedding", startDate: Date(), endDate: Date(), imagesData: []), showShadow: true)
-        .frame(height: 350)
 }

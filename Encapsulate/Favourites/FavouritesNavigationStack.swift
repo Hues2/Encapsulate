@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct HomeNavigationStack: View {
+struct FavouritesNavigationStack: View {
     var body: some View {
         NavigationStack {
-            HomeView()
+            FavouritesView()
                 .background(Color.backgroundColor.ignoresSafeArea())
                 .navigationBarTitleDisplayMode(.inline)
         }
