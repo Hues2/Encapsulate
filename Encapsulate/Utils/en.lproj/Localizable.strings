@@ -8,3 +8,8 @@
 "add_capsule_end_date" = "End Date:";
 "add_capsule_select_photos" = "Select Photos:";
 "add_capsule_save_capsule_button" = "Save Capsule";
+"select:" = "Select:";
+"select" = "Select";
+"capsules:" = "Capsules:";
+"no_saved_capsules" = "No Saved Capsules";
+

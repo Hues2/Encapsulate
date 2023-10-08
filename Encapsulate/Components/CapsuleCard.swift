@@ -1,22 +1,28 @@
 import SwiftUI
 
 struct CapsuleCard: View {
-    let capsule : Capsule
-    let showShadow : Bool
+    private let capsule : Capsule
+    private let showShadow : Bool
+    private var thumbnailImage : Image?
+    
+    init(capsule: Capsule, showShadow: Bool) {
+        self.capsule = capsule
+        self.showShadow = showShadow
+        self.thumbnailImage = setThumbnailImage(capsule)
+    }
     
     var body: some View {
         VStack {
-            if let firstImageData = capsule.imagesData.first, let imageName = String(data: firstImageData, encoding: .utf8) {
-                Image(imageName)
+            if let thumbnailImage {
+                thumbnailImage
                     .resizable()
-                    .scaledToFit()
             } else {
                 noImageView
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .background(
-            Color.clear
+            Color.backgroundColor
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(color: .black.opacity(0.6), radius: showShadow ? 5 : 0)
         )
@@ -50,6 +56,14 @@ extension CapsuleCard {
                 .foregroundStyle(Color.defaultTextColor)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+extension CapsuleCard {
+    private func setThumbnailImage(_ capsule : Capsule) -> Image? {
+        guard let imageData = capsule.imagesData.randomElement(),
+              let uiImage = UIImage(data: imageData) else { return nil }
+        return Image(uiImage: uiImage)
     }
 }
 

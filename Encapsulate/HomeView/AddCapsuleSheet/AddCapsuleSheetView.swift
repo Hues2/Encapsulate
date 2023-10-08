@@ -1,18 +1,15 @@
 import SwiftUI
 import PhotosUI
+import SwiftData
 
 struct AddCapsuleSheetView: View {
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.modelContext) private var context
+    @State private var viewModel = AddCapsuleSheetViewModel()
     @Binding var showAddCapsuleSheet : Bool
-    @State var newCapsule : Capsule = Capsule(title: "",
-                                              startDate: Date(),
-                                              endDate: Date(),
-                                              imagesData: [])
-    @State private var photos : [PhotosPickerItem] = []
-    @State private var images : [Image] = []
     private let columns = [GridItem(.flexible(minimum: 0, maximum: .infinity)),
                          GridItem(.flexible(minimum: 0, maximum: .infinity)),
                          GridItem(.flexible(minimum: 0, maximum: .infinity))]
+    @State private var newCapsuleTitle : String = ""
     
     var body: some View {
         addCapsuleSheet
@@ -25,7 +22,7 @@ extension AddCapsuleSheetView {
         VStack(spacing: 0) {
             sheetHeader
             ScrollView {
-                VStack(alignment: .leading, spacing: 30) {
+                VStack(alignment: .leading, spacing: 25) {
                     titleTextField
                     
                     startDatePicker
@@ -37,6 +34,7 @@ extension AddCapsuleSheetView {
                     imagesView
                     
                     saveCapsuleButton
+                       
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
@@ -49,7 +47,7 @@ extension AddCapsuleSheetView {
 
 //MARK: - Sheet Header
 extension AddCapsuleSheetView {
-    private func title(_ localizedTitleKey : LocalizedStringKey) -> some View {
+    private func sheetTitle(_ localizedTitleKey : LocalizedStringKey) -> some View {
         Text(localizedTitleKey, comment: "Title")
             .font(.title)
             .fontWeight(.bold)
@@ -60,7 +58,7 @@ extension AddCapsuleSheetView {
     private var sheetHeader : some View {
         VStack(spacing: 0) {
             HStack {
-                title("add_capsule")
+                sheetTitle("add_capsule")
             }
             .frame(maxWidth: .infinity)
             .overlay(alignment: .trailing) {
@@ -79,27 +77,42 @@ extension AddCapsuleSheetView {
             Divider()
         }
     }
+    
+    private func sectionTitle(_ titleKey : LocalizedStringKey, _ comment : StaticString) -> some View {
+        Text(titleKey, comment: comment)
+            .font(.body)
+            .fontWeight(.light)
+            .foregroundStyle(Color.defaultTextColor)
+    }
 }
 
 //MARK: - Title Textfield
 extension AddCapsuleSheetView {
     private var titleTextField : some View {
         VStack(alignment: .leading) {
-            Text("add_capsule_title_label")
-                .font(.title3)
-                .fontWeight(.black)
+            HStack {
+                sectionTitle("add_capsule_title_label", "Title:")
+                if viewModel.newCapsule.title.isEmpty {
+                    Image(systemName: "xmark.app.fill")
+                        .foregroundStyle(.red)
+                } else {
+                    Image(systemName: "checkmark.square.fill")
+                        .foregroundStyle(.green)
+                }
+            }
+            
             TextField("",
-                      text: $newCapsule.title,
+                      text: $viewModel.newCapsule.title,
                       prompt: Text("add_capsule_title_prompt", comment: "Capsule title")
                 .foregroundStyle(Color.defaultTextColor))
                 .font(.title2)
+                .foregroundStyle(Color.white)
+                .contentShape(RoundedRectangle(cornerRadius: 8))
+                .withCardModifier(.accent)
+                .scrollDismissesKeyboard(.interactively)
+                .submitLabel(.done)
+                .tint(.white)
         }
-        .foregroundStyle(.white)
-        .padding()
-        .background(
-            Color.accentColor
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-        )
     }
 }
 
@@ -107,75 +120,71 @@ extension AddCapsuleSheetView {
 extension AddCapsuleSheetView {
     private func datePicker(_ titleKey : LocalizedStringKey, _ date : Binding<Date>) -> some View {
         VStack(alignment: .leading) {
-            DatePicker(selection: date) {
-                Text(titleKey, comment: "Date Title")
+            sectionTitle(titleKey, "Date Title")
+            
+            DatePicker(selection: date, displayedComponents: .date) {
+                Text("select:", comment: "Select:")
                     .font(.title3)
-                    .fontWeight(.black)
+                    .fontWeight(.light)
             }
             .datePickerStyle(.compact)
+            .foregroundStyle(.white)
+            .withCardModifier(.accent)
         }
-        .foregroundStyle(.white)
-        .padding()
-        .background(
-            Color.accentColor
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-        )
     }
     
     private var startDatePicker : some View {
-        datePicker("add_capsule_start_date", $newCapsule.startDate)
+        datePicker("add_capsule_start_date", $viewModel.newCapsule.startDate)
     }
     
     private var endDatePicker : some View {
-        datePicker("add_capsule_end_date", $newCapsule.endDate)
+        datePicker("add_capsule_end_date", $viewModel.newCapsule.endDate)
     }
 }
 
 //MARK: - Photos Picker
 extension AddCapsuleSheetView {
     private var photosPicker : some View {
-        HStack {
-            Text("add_capsule_select_photos", comment: "Select Photos")
-                .font(.title3)
-                .fontWeight(.black)
-            Spacer()
+        VStack(alignment: .leading) {
+            HStack {
+                sectionTitle("add_capsule_select_photos", "Select Photos")
+                if viewModel.images.isEmpty {
+                    Image(systemName: "xmark.app.fill")
+                        .foregroundStyle(.red)
+                } else {
+                    Image(systemName: "checkmark.square.fill")
+                        .foregroundStyle(.green)
+                }
+            }
+            
             picker
+                .foregroundStyle(.white)
+                .withCardModifier(.accent)
         }
-        .foregroundStyle(.white)
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(
-            Color.accentColor
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-        )
+        
     }
     
     private var picker : some View {
-        PhotosPicker("Select photos", selection: $photos, matching: .images)
-            .onChange(of: self.photos) {
-                Task {
-                    images.removeAll()
-                    
-                    for photo in photos {
-                        if let data = try? await photo.loadTransferable(type: Data.self) {
-                            if let uiImage = UIImage(data: data) {
-                                let image = Image(uiImage: uiImage)
-                                self.images.append(image)
-                            }
-                        }
-                    }
-                    return
-                }
+        PhotosPicker(selection: $viewModel.photos, matching: .images) {
+            Text("select", comment: "Select")
+                .font(.title2)
+                .fontWeight(.light)
+        }
+        .onChange(of: viewModel.photos) {
+            Task {
+                await viewModel.setImages()
+                return
             }
+        }
     }
     
     private var imagesView : some View {
         LazyVGrid(columns: columns) {
-            ForEach(Array(zip(self.images.indices, self.images)), id: \.0) { (_, image) in
+            ForEach(Array(zip(viewModel.images.indices, viewModel.images)), id: \.0) { (_, image) in
                 image
                     .resizable()
-                    .scaledToFit()
                     .frame(maxWidth: .infinity)
+                    .frame(height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
@@ -183,22 +192,27 @@ extension AddCapsuleSheetView {
     }
 }
 
+//MARK: - Save Capsule Button
 extension AddCapsuleSheetView {
     private var saveCapsuleButton : some View {
-        // TODO: Only make button tappable if all fields are valid
         Button {
-            // TODO: Save capsule to Swift Data
+            saveCapsule()
+            showAddCapsuleSheet = false
         } label: {
             Text("add_capsule_save_capsule_button", comment: "Save Capsule")
-                .font(.title)
-                .fontWeight(.black)
+                .font(.title3)
+                .fontWeight(.semibold)
                 .foregroundStyle(.white)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.accentColor)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .withCardModifier(Color.secondAccentColor)
+                .opacity((viewModel.newCapsule.title.isEmpty || viewModel.images.isEmpty) ? 0.3 : 1)
         }
+        .disabled(viewModel.newCapsule.title.isEmpty || viewModel.images.isEmpty)
+    }
+}
 
+extension AddCapsuleSheetView {
+    private func saveCapsule() {
+        context.insert(viewModel.newCapsule)
     }
 }
 
