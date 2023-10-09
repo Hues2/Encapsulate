@@ -3,6 +3,7 @@ import PhotosUI
 import SwiftData
 
 struct AddCapsuleSheetView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.modelContext) private var context
     @State private var viewModel = AddCapsuleSheetViewModel()
     @Binding var showAddCapsuleSheet : Bool
@@ -102,15 +103,16 @@ extension AddCapsuleSheetView {
             
             TextField("",
                       text: $viewModel.newCapsuleTitle,
-                      prompt: Text("add_capsule_title_prompt", comment: "Capsule title")
-                .foregroundStyle(Color.defaultTextColor))
-                .font(.title2)
-                .foregroundStyle(Color.white)
-                .contentShape(RoundedRectangle(cornerRadius: 8))
-                .withCardModifier(.accent)
-                .scrollDismissesKeyboard(.interactively)
-                .submitLabel(.done)
-                .tint(.white)
+                      prompt:
+                        Text("add_capsule_title_prompt", comment: "Capsule title")
+                .foregroundStyle(Color.defaultTextColor)
+                .font(.title3))
+            .font(.title2)
+            .foregroundStyle(Color.white)            
+            .withMaterialCardModifier(.ultraThinMaterial)
+            .scrollDismissesKeyboard(.interactively)
+            .submitLabel(.done)
+            .tint(.white)
         }
     }
 }
@@ -127,8 +129,8 @@ extension AddCapsuleSheetView {
                     .fontWeight(.light)
             }
             .datePickerStyle(.compact)
-            .foregroundStyle(.white)
-            .withCardModifier(.accent)
+            .foregroundStyle(Color.defaultTextColor)
+            .withMaterialCardModifier(.ultraThinMaterial)
         }
     }
     
@@ -157,8 +159,7 @@ extension AddCapsuleSheetView {
             }
             
             picker
-                .foregroundStyle(.white)
-                .withCardModifier(.accent)
+                .withMaterialCardModifier(.ultraThinMaterial)
         }
         
     }
@@ -168,6 +169,7 @@ extension AddCapsuleSheetView {
             Text("select", comment: "Select")
                 .font(.title2)
                 .fontWeight(.light)
+                .foregroundStyle(Color.defaultTextColor)
         }
         .onChange(of: viewModel.photos) {
             Task {
@@ -207,7 +209,7 @@ extension AddCapsuleSheetView {
         .font(.title3)
         .fontWeight(.semibold)
         .foregroundStyle(.white)
-        .withCardModifier(Color.secondAccentColor)
+        .withCardModifier(colorScheme == .dark ? Color.accentColor : Color.secondAccentColor)
         .opacity(viewModel.canSaveCapsule() ? 1 : 0.3)
         .disabled(!viewModel.canSaveCapsule())
     }

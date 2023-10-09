@@ -52,8 +52,8 @@ extension HighlightCapsulesView {
             .containerRelativeFrame(.horizontal, count: 1, spacing: 10)
             .scrollTransition { content, phase in
                 content
-                    .opacity(phase.isIdentity ? 1 : 0.3)
-                    .scaleEffect(phase.isIdentity ? 1 : 0.3)
+                    .opacity(phase.isIdentity ? 1 : 0.2)
+                    .scaleEffect(phase.isIdentity ? 1 : 0.2)
             }
     }
 }
