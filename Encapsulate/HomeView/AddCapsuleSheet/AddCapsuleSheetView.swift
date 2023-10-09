@@ -9,7 +9,6 @@ struct AddCapsuleSheetView: View {
     private let columns = [GridItem(.flexible(minimum: 0, maximum: .infinity)),
                          GridItem(.flexible(minimum: 0, maximum: .infinity)),
                          GridItem(.flexible(minimum: 0, maximum: .infinity))]
-    @State private var newCapsuleTitle : String = ""
     
     var body: some View {
         addCapsuleSheet
@@ -92,7 +91,7 @@ extension AddCapsuleSheetView {
         VStack(alignment: .leading) {
             HStack {
                 sectionTitle("add_capsule_title_label", "Title:")
-                if viewModel.newCapsule.title.isEmpty {
+                if viewModel.newCapsuleTitle.isEmpty {
                     Image(systemName: "xmark.app.fill")
                         .foregroundStyle(.red)
                 } else {
@@ -102,7 +101,7 @@ extension AddCapsuleSheetView {
             }
             
             TextField("",
-                      text: $viewModel.newCapsule.title,
+                      text: $viewModel.newCapsuleTitle,
                       prompt: Text("add_capsule_title_prompt", comment: "Capsule title")
                 .foregroundStyle(Color.defaultTextColor))
                 .font(.title2)
@@ -134,11 +133,11 @@ extension AddCapsuleSheetView {
     }
     
     private var startDatePicker : some View {
-        datePicker("add_capsule_start_date", $viewModel.newCapsule.startDate)
+        datePicker("add_capsule_start_date", $viewModel.newCapsuleStartDate)
     }
     
     private var endDatePicker : some View {
-        datePicker("add_capsule_end_date", $viewModel.newCapsule.endDate)
+        datePicker("add_capsule_end_date", $viewModel.newCapsuleEndDate)
     }
 }
 
@@ -197,21 +196,36 @@ extension AddCapsuleSheetView {
     private var saveCapsuleButton : some View {
         Button {
             saveCapsule()
-            showAddCapsuleSheet = false
         } label: {
-            Text("add_capsule_save_capsule_button", comment: "Save Capsule")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .withCardModifier(Color.secondAccentColor)
-                .opacity((viewModel.newCapsule.title.isEmpty || viewModel.images.isEmpty) ? 0.3 : 1)
+            if viewModel.isLoading {
+                ProgressView()
+                    .tint(.white)
+            } else {
+                Text("add_capsule_save_capsule_button", comment: "Save Capsule")
+            }
         }
-        .disabled(viewModel.newCapsule.title.isEmpty || viewModel.images.isEmpty)
+        .font(.title3)
+        .fontWeight(.semibold)
+        .foregroundStyle(.white)
+        .withCardModifier(Color.secondAccentColor)
+        .opacity(viewModel.canSaveCapsule() ? 1 : 0.3)
+        .disabled(!viewModel.canSaveCapsule())
     }
 }
 
 extension AddCapsuleSheetView {
     private func saveCapsule() {
-        context.insert(viewModel.newCapsule)
+        // Set isSaving to true
+        viewModel.isLoading = true
+        // Save the capsule
+        let newCapsule = Capsule(title: viewModel.newCapsuleTitle,
+                                 startDate: viewModel.newCapsuleStartDate,
+                                 endDate: viewModel.newCapsuleEndDate,
+                                 capsuleImages: viewModel.newCapsuleImages)
+        context.insert(newCapsule)
+        // Dismiss the sheet
+        showAddCapsuleSheet = false
+        // Set isSaving to false
+        viewModel.isLoading = false
     }
 }

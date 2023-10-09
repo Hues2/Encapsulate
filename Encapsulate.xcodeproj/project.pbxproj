@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E46A2972AD47BA9009BCA6F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E46A2962AD47BA9009BCA6F /* Data.swift */; };
+		2E46A2992AD480C0009BCA6F /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E46A2982AD480C0009BCA6F /* UIImage.swift */; };
 		2E5073F52AD31781005214B6 /* NoCapsulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5073F42AD31781005214B6 /* NoCapsulesView.swift */; };
 		2E5073F72AD34CBA005214B6 /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5073F62AD34CBA005214B6 /* AppTabView.swift */; };
 		2E5073F92AD34CE2005214B6 /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5073F82AD34CE2005214B6 /* AppScreen.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E46A2962AD47BA9009BCA6F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		2E46A2982AD480C0009BCA6F /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2E5073F42AD31781005214B6 /* NoCapsulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCapsulesView.swift; sourceTree = "<group>"; };
 		2E5073F62AD34CBA005214B6 /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		2E5073F82AD34CE2005214B6 /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				2EB954DD2AD2CBC500327CFE /* View.swift */,
 				2EB954DF2AD2CC2500327CFE /* ViewModifiers.swift */,
 				2EB954E42AD2D5AE00327CFE /* Date.swift */,
+				2E46A2962AD47BA9009BCA6F /* Data.swift */,
+				2E46A2982AD480C0009BCA6F /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -269,12 +275,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EB954E02AD2CC2500327CFE /* ViewModifiers.swift in Sources */,
+				2E46A2992AD480C0009BCA6F /* UIImage.swift in Sources */,
 				2EEF0CF72AD218800067D831 /* AddCapsuleSheetView.swift in Sources */,
 				2E90C0312AD1B22500E5C0BC /* CapsuleCard.swift in Sources */,
 				2E90C0342AD1B24700E5C0BC /* Capsule.swift in Sources */,
 				2E90C0382AD1D68500E5C0BC /* RoundedCornerShape.swift in Sources */,
 				2E90C0082AD198C900E5C0BC /* ContentView.swift in Sources */,
 				2EB954E52AD2D5AE00327CFE /* Date.swift in Sources */,
+				2E46A2972AD47BA9009BCA6F /* Data.swift in Sources */,
 				2E5073FC2AD34DF2005214B6 /* FavouritesNavigationStack.swift in Sources */,
 				2EB954E32AD2D17B00327CFE /* AddCapsuleViewModel.swift in Sources */,
 				2EB954EB2AD2FDC200327CFE /* CapsulesView.swift in Sources */,

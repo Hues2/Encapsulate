@@ -7,7 +7,7 @@ class Capsule : Identifiable {
     var title : String
     var startDate : Date
     var endDate : Date
-    var capsuleImages : [CapsuleImage]
+    @Relationship(deleteRule: .cascade) var capsuleImages : [CapsuleImage]
     
     init(title: String, startDate: Date, endDate: Date, capsuleImages: [CapsuleImage]) {
         self.title = title
@@ -19,10 +19,10 @@ class Capsule : Identifiable {
 
 @Model
 class CapsuleImage : Identifiable {
-    var id : UUID = UUID()
-    var data : Data
+    @Attribute(.unique) var id : UUID = UUID()
+    @Attribute(.externalStorage) var data : Data
     var isFavourite : Bool
-    
+        
     func image() -> Image? {
         guard let uiImage = UIImage(data: data) else { return nil }
         return Image(uiImage: uiImage)
