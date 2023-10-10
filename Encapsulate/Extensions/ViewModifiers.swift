@@ -1,5 +1,6 @@
 import SwiftUI
 
+//MARK: - Card Modifier, applies a color background
 struct CardViewModidifier : ViewModifier {
     let cardColor : Color
     func body(content: Content) -> some View {
@@ -11,6 +12,7 @@ struct CardViewModidifier : ViewModifier {
     }
 }
 
+//MARK: - Card Modifier, applies a material background
 struct MaterialCardViewModidifier : ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
     let material : Material
@@ -24,4 +26,17 @@ struct MaterialCardViewModidifier : ViewModifier {
                     .stroke(colorScheme == .dark ? Color.accentColor : Color.secondAccentColor)
             }
     }
+}
+
+//MARK: - Allows scrolling CapsuleImages with a LongPressapGesture
+struct YieldTouches : ViewModifier {
+    @State private var disabled = false
+    
+    func body(content: Content) -> some View {
+        content
+            .disabled(disabled)
+            .onTapGesture { onMain { disabled = true; onMain { disabled = false }}}
+    }
+    
+    private func onMain(_ action: @escaping () -> Void) { DispatchQueue.main.async(execute: action) }
 }

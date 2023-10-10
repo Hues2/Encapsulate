@@ -2,7 +2,6 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    @Environment(\.modelContext) private var context
     @Query private var capsules : [Capsule]
     @State private var showAddCapsuleSheet : Bool = false
     
@@ -51,10 +50,10 @@ extension HomeView {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack(spacing: 0) {
-                    HighlightCapsulesView(capsules: capsules, proxy: proxy)
+                    HighlightCapsulesView(proxy: proxy)
                         .padding(.vertical, 20)
                     
-                    CapsulesView(capsules: capsules, proxy: proxy)
+                    CapsulesView(proxy: proxy)
                         .padding(.bottom)
                 }
                 .frame(maxHeight: .infinity)

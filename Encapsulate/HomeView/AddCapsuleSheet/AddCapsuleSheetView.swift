@@ -108,11 +108,11 @@ extension AddCapsuleSheetView {
                 .foregroundStyle(Color.defaultTextColor)
                 .font(.title3))
             .font(.title2)
-            .foregroundStyle(Color.white)            
+            .foregroundStyle(Color.defaultTextColor)            
             .withMaterialCardModifier(.ultraThinMaterial)
             .scrollDismissesKeyboard(.interactively)
             .submitLabel(.done)
-            .tint(.white)
+            .tint(colorScheme == .dark ? Color.secondAccentColor : .accentColor)
         }
     }
 }
@@ -219,12 +219,20 @@ extension AddCapsuleSheetView {
     private func saveCapsule() {
         // Set isSaving to true
         viewModel.isLoading = true
-        // Save the capsule
+        // Insert the Capsule model into the context
         let newCapsule = Capsule(title: viewModel.newCapsuleTitle,
                                  startDate: viewModel.newCapsuleStartDate,
-                                 endDate: viewModel.newCapsuleEndDate,
-                                 capsuleImages: viewModel.newCapsuleImages)
+                                 endDate: viewModel.newCapsuleEndDate)
         context.insert(newCapsule)
+        
+        // Insert each of the CapsuleImages into the context
+        for capsuleImage in viewModel.newCapsuleImages {
+            context.insert(capsuleImage)
+            
+            // Set up the relationship between the new Capsule model and this CapsuleImage model
+            capsuleImage.capsule = newCapsule
+        }
+
         // Dismiss the sheet
         showAddCapsuleSheet = false
         // Set isSaving to false

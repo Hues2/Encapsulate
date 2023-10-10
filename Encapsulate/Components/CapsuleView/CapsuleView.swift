@@ -1,8 +1,19 @@
 import SwiftUI
+import SwiftData
 
 struct CapsuleView: View {
     let capsule : Capsule
+    @Query private var capsuleImages : [CapsuleImage]
     @State private var isShaking : Bool = false
+    
+    init(capsule : Capsule) {
+        self.capsule = capsule
+        let capsuleId = capsule.id
+        let predicate = #Predicate<CapsuleImage> { capsuleImage in
+            capsuleImage.capsule?.id == capsuleId
+        }
+        _capsuleImages = Query(filter: predicate)
+    }
     
     var body: some View {
         capsuleRow            
@@ -37,7 +48,7 @@ extension CapsuleView {
     private var capsuleImagesView : some View {
         ScrollView(.horizontal) {
             HStack {
-                ForEach(Array(zip(capsule.capsuleImages.indices, capsule.capsuleImages)), id: \.0) { (_, capsuleImage) in
+                ForEach(Array(zip(capsuleImages.indices, capsuleImages)), id: \.0) { (_, capsuleImage) in
                     if let image = capsuleImage.image() {
                         CapsuleImageView(capsuleImage: capsuleImage, image: image, isShaking: $isShaking)
                     }

@@ -1,7 +1,8 @@
 import SwiftUI
+import SwiftData
 
 struct CapsulesView: View {
-    let capsules : [Capsule]
+    @Query private var capsules : [Capsule]
     let proxy : ScrollViewProxy
     
     var body: some View {

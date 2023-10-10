@@ -3,25 +3,25 @@ import SwiftData
 
 @Model
 class Capsule : Identifiable {
-    @Attribute(.unique) let id : UUID = UUID()
+    @Attribute(.unique) let id : String = UUID().uuidString
     var title : String
     var startDate : Date
     var endDate : Date
-    @Relationship(deleteRule: .cascade) var capsuleImages : [CapsuleImage]
+    @Relationship(deleteRule: .cascade, inverse: \CapsuleImage.capsule)
+    var capsuleImages = [CapsuleImage]()
     
-    init(title: String, startDate: Date, endDate: Date, capsuleImages: [CapsuleImage]) {
+    init(title: String, startDate: Date, endDate: Date) {
         self.title = title
         self.startDate = startDate
         self.endDate = endDate
-        self.capsuleImages = capsuleImages
     }
 }
 
 @Model
 class CapsuleImage : Identifiable {
-    @Attribute(.unique) var id : UUID = UUID()
     @Attribute(.externalStorage) var data : Data
     var isFavourite : Bool
+    var capsule : Capsule?
         
     func image() -> Image? {
         guard let uiImage = UIImage(data: data) else { return nil }

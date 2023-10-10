@@ -8,6 +8,10 @@ extension View {
     func withMaterialCardModifier(_ material : Material) -> some View {
         modifier(MaterialCardViewModidifier(material: material))
     }
+    
+    func yieldTouches() -> some View {
+        modifier(YieldTouches())
+    }
 }
 
 
