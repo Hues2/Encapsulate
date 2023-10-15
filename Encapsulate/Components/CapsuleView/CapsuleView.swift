@@ -2,9 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct CapsuleView: View {
+    @Environment(\.modelContext) private var context
     let capsule : Capsule
     @Query private var capsuleImages : [CapsuleImage]
-    @State private var isShaking : Bool = false
     
     init(capsule : Capsule) {
         self.capsule = capsule
@@ -22,7 +22,7 @@ struct CapsuleView: View {
 
 extension CapsuleView {
     private var capsuleRow : some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 20) {
             capsuleRowTitle
             
             capsuleImagesView
@@ -39,6 +39,12 @@ extension CapsuleView {
                 .font(.subheadline)
                 .fontWeight(.light)
                 .layoutPriority(0)
+            Spacer()
+            Menu {
+                menuButtons
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
         }
         .foregroundStyle(Color.defaultTextColor)
         .lineLimit(1)
@@ -49,15 +55,28 @@ extension CapsuleView {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(Array(zip(capsuleImages.indices, capsuleImages)), id: \.0) { (_, capsuleImage) in
-                    if let image = capsuleImage.image() {
-                        CapsuleImageView(capsuleImage: capsuleImage, image: image, isShaking: $isShaking)
-                    }
+                    CapsuleImageView(capsuleImage: capsuleImage)
                 }
             }
         }
         .contentMargins(.horizontal, 15, for: .scrollContent)
         .contentMargins(.vertical, 1, for: .scrollContent)
         .scrollIndicators(.hidden)
+    }
+    
+    private var menuButtons : some View {
+        VStack {
+            MenuButton(title: "share_capsule", comment: "Share Capsule", iconStr: "square.and.arrow.up.fill") {
+                // TODO: Share capsule functionality
+                print("Share Capsule")
+            }
+            
+            MenuButton(title: "delete_capsule", comment: "Delete Capsule", iconStr: "trash.fill") {
+                withAnimation {
+                    context.delete(capsule)
+                }
+            }
+        }
     }
 }
 

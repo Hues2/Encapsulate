@@ -30,7 +30,7 @@ extension CapsulesView {
     }
     
     private var capsulesListView : some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 40) {
             ForEach(capsules) { capsule in
                 CapsuleView(capsule: capsule)
                     .id(capsule)

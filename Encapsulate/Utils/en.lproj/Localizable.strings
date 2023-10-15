@@ -13,3 +13,15 @@
 "capsules:" = "Capsules:";
 "no_saved_capsules" = "No Saved Capsules";
 
+// Favourites CapsuleImages
+"remove_from_favourites" = "Remove from favourites";
+"add_to_favourites" = "Add to favourites";
+
+// Delete CapsuleImage
+"delete_image" = "Remove image";
+
+// Share Capsule
+"share_capsule" = "Share Capsule";
+
+// Delete Capsule
+"delete_capsule" = "Delete Capsule";

@@ -36,6 +36,8 @@
 		2EB954E52AD2D5AE00327CFE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB954E42AD2D5AE00327CFE /* Date.swift */; };
 		2EB954E92AD2FCE500327CFE /* HighlightCapsulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB954E82AD2FCE500327CFE /* HighlightCapsulesView.swift */; };
 		2EB954EB2AD2FDC200327CFE /* CapsulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB954EA2AD2FDC200327CFE /* CapsulesView.swift */; };
+		2EC0C3CE2AD606D200115FA7 /* CapsuleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC0C3CD2AD606D200115FA7 /* CapsuleImage.swift */; };
+		2ECCFBA92ADC6D66001B81F7 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCFBA82ADC6D66001B81F7 /* MenuButton.swift */; };
 		2EEF0CF72AD218800067D831 /* AddCapsuleSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF0CF62AD218800067D831 /* AddCapsuleSheetView.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		2EB954E42AD2D5AE00327CFE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2EB954E82AD2FCE500327CFE /* HighlightCapsulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCapsulesView.swift; sourceTree = "<group>"; };
 		2EB954EA2AD2FDC200327CFE /* CapsulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsulesView.swift; sourceTree = "<group>"; };
+		2EC0C3CD2AD606D200115FA7 /* CapsuleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleImage.swift; sourceTree = "<group>"; };
+		2ECCFBA82ADC6D66001B81F7 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		2EEF0CF62AD218800067D831 /* AddCapsuleSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCapsuleSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +191,7 @@
 				2EB604CF2AD5AE2000999A64 /* CapsuleView */,
 				2E90C0302AD1B22500E5C0BC /* CapsuleCard.swift */,
 				2E90C0372AD1D68500E5C0BC /* RoundedCornerShape.swift */,
+				2ECCFBA82ADC6D66001B81F7 /* MenuButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				2E90C0332AD1B24700E5C0BC /* Capsule.swift */,
+				2EC0C3CD2AD606D200115FA7 /* CapsuleImage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EB954E02AD2CC2500327CFE /* ViewModifiers.swift in Sources */,
+				2EC0C3CE2AD606D200115FA7 /* CapsuleImage.swift in Sources */,
 				2E46A2992AD480C0009BCA6F /* UIImage.swift in Sources */,
 				2EEF0CF72AD218800067D831 /* AddCapsuleSheetView.swift in Sources */,
 				2E90C0312AD1B22500E5C0BC /* CapsuleCard.swift in Sources */,
@@ -309,6 +316,7 @@
 				2E5073F92AD34CE2005214B6 /* AppScreen.swift in Sources */,
 				2E5073FE2AD35DBE005214B6 /* FavouritesView.swift in Sources */,
 				2EB604D12AD5AE4000999A64 /* CapsuleImageView.swift in Sources */,
+				2ECCFBA92ADC6D66001B81F7 /* MenuButton.swift in Sources */,
 				2E90C02F2AD1AE8000E5C0BC /* Color.swift in Sources */,
 				2E90C0192AD19CB300E5C0BC /* HomeNavigationStack.swift in Sources */,
 				2EB954DE2AD2CBC500327CFE /* View.swift in Sources */,
