@@ -61,7 +61,7 @@ extension CapsuleCard {
 
 extension CapsuleCard {
     private func setThumbnailImage(_ capsule : Capsule) -> Image? {
-        guard let capsuleImage = capsule.capsuleImages.randomElement(),
+        guard let capsuleImage = capsule.capsuleImages.first,
               let uiImage = UIImage(data: capsuleImage.data) else { return nil }
         return Image(uiImage: uiImage)
     }

@@ -31,7 +31,7 @@ struct CapsuleView: View {
 
 extension CapsuleView {
     private var capsuleRow : some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 15) {
             capsuleRowTitle
             
             capsuleImagesView
@@ -54,8 +54,8 @@ extension CapsuleView {
             } label: {
                 Image(systemName: "ellipsis.circle")
                     .font(.headline)
+                    .contentShape(Rectangle())
             }
-            .contentShape(Rectangle())
         }
         .foregroundStyle(Color.defaultTextColor)
         .lineLimit(1)
