@@ -59,5 +59,6 @@ extension HomeView {
                 .frame(maxHeight: .infinity)
             }
         }
+        .scrollIndicators(.hidden)
     }
 }

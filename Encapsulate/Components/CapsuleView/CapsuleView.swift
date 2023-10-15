@@ -5,6 +5,7 @@ struct CapsuleView: View {
     @Environment(\.modelContext) private var context
     let capsule : Capsule
     @Query private var capsuleImages : [CapsuleImage]
+    @State private var showDeleteAlert : Bool = false
     
     init(capsule : Capsule) {
         self.capsule = capsule
@@ -16,7 +17,15 @@ struct CapsuleView: View {
     }
     
     var body: some View {
-        capsuleRow            
+        capsuleRow  
+            .alert("delete_capsule_alert_title", isPresented: $showDeleteAlert) {
+                Button(role: .destructive) {
+                    context.delete(capsule)
+                } label: {
+                    Text("Delete")
+                        .foregroundStyle(.red)
+                }
+            }
     }
 }
 
@@ -44,7 +53,9 @@ extension CapsuleView {
                 menuButtons
             } label: {
                 Image(systemName: "ellipsis.circle")
+                    .font(.headline)
             }
+            .contentShape(Rectangle())
         }
         .foregroundStyle(Color.defaultTextColor)
         .lineLimit(1)
@@ -66,14 +77,14 @@ extension CapsuleView {
     
     private var menuButtons : some View {
         VStack {
-            MenuButton(title: "share_capsule", comment: "Share Capsule", iconStr: "square.and.arrow.up.fill") {
+            MenuButton(title: "share_capsule", comment: "Share Capsule", iconStr: "square.and.arrow.up") {
                 // TODO: Share capsule functionality
                 print("Share Capsule")
             }
             
-            MenuButton(title: "delete_capsule", comment: "Delete Capsule", iconStr: "trash.fill") {
+            MenuButton(title: "delete_capsule", comment: "Delete Capsule", iconStr: "trash") {
                 withAnimation {
-                    context.delete(capsule)
+                    self.showDeleteAlert = true
                 }
             }
         }

@@ -54,8 +54,13 @@ extension CapsuleImageView {
                 capsuleImage.isFavourite.toggle()
             }
             
-            MenuButton(title: "delete_image", comment: "Delete image", iconStr: "trash.fill") {
+            MenuButton(title: "delete_image", comment: "Delete image", iconStr: "trash") {
                 context.delete(capsuleImage)
+            }
+            
+            MenuButton(title: "share_image", comment: "Share Image", iconStr: "square.and.arrow.up") {
+                // TODO: Share Image functionality
+                print("Share Image")
             }
         }
     }

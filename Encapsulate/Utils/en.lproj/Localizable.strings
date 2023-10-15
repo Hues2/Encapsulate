@@ -20,8 +20,12 @@
 // Delete CapsuleImage
 "delete_image" = "Remove image";
 
+// Share CapsuleImage
+"share_image" = "Share Image";
+
 // Share Capsule
 "share_capsule" = "Share Capsule";
 
 // Delete Capsule
 "delete_capsule" = "Delete Capsule";
+"delete_capsule_alert_title" = "Are you sure you want to delete this capsule?";
