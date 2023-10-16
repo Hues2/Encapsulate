@@ -57,10 +57,14 @@ extension CapsuleImageView {
             MenuButton(title: "delete_image", comment: "Delete image", iconStr: "trash") {
                 context.delete(capsuleImage)
             }
-            
-            MenuButton(title: "share_image", comment: "Share Image", iconStr: "square.and.arrow.up") {
-                // TODO: Share Image functionality
-                print("Share Image")
+
+            if let image = Utils.getCapsuleImage(capsuleImage) {
+                ShareLink(item: image, preview: SharePreview("My shared image", image: image)) {
+                    HStack {
+                        Text("share_image", comment: "Share Image")
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                }
             }
         }
     }

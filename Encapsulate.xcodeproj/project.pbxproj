@@ -36,6 +36,7 @@
 		2EB954E52AD2D5AE00327CFE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB954E42AD2D5AE00327CFE /* Date.swift */; };
 		2EB954E92AD2FCE500327CFE /* HighlightCapsulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB954E82AD2FCE500327CFE /* HighlightCapsulesView.swift */; };
 		2EB954EB2AD2FDC200327CFE /* CapsulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB954EA2AD2FDC200327CFE /* CapsulesView.swift */; };
+		2EBEABFB2ADDA04B00E70124 /* TransferrableCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBEABFA2ADDA04B00E70124 /* TransferrableCapsule.swift */; };
 		2EC0C3CE2AD606D200115FA7 /* CapsuleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC0C3CD2AD606D200115FA7 /* CapsuleImage.swift */; };
 		2ECCFBA92ADC6D66001B81F7 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCFBA82ADC6D66001B81F7 /* MenuButton.swift */; };
 		2EEF0CF72AD218800067D831 /* AddCapsuleSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF0CF62AD218800067D831 /* AddCapsuleSheetView.swift */; };
@@ -72,6 +73,8 @@
 		2EB954E42AD2D5AE00327CFE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2EB954E82AD2FCE500327CFE /* HighlightCapsulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCapsulesView.swift; sourceTree = "<group>"; };
 		2EB954EA2AD2FDC200327CFE /* CapsulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsulesView.swift; sourceTree = "<group>"; };
+		2EBEABFA2ADDA04B00E70124 /* TransferrableCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferrableCapsule.swift; sourceTree = "<group>"; };
+		2EBEABFC2ADDBC6F00E70124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2EC0C3CD2AD606D200115FA7 /* CapsuleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleImage.swift; sourceTree = "<group>"; };
 		2ECCFBA82ADC6D66001B81F7 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		2EEF0CF62AD218800067D831 /* AddCapsuleSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCapsuleSheetView.swift; sourceTree = "<group>"; };
@@ -116,6 +119,7 @@
 		2E90C0042AD198C900E5C0BC /* Encapsulate */ = {
 			isa = PBXGroup;
 			children = (
+				2EBEABFC2ADDBC6F00E70124 /* Info.plist */,
 				2E90C0052AD198C900E5C0BC /* EncapsulateApp.swift */,
 				2E90C0072AD198C900E5C0BC /* ContentView.swift */,
 				2E90C0322AD1B23000E5C0BC /* Models */,
@@ -201,6 +205,7 @@
 			children = (
 				2E90C0332AD1B24700E5C0BC /* Capsule.swift */,
 				2EC0C3CD2AD606D200115FA7 /* CapsuleImage.swift */,
+				2EBEABFA2ADDA04B00E70124 /* TransferrableCapsule.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				2E90C0382AD1D68500E5C0BC /* RoundedCornerShape.swift in Sources */,
 				2E90C0082AD198C900E5C0BC /* ContentView.swift in Sources */,
 				2EB954E52AD2D5AE00327CFE /* Date.swift in Sources */,
+				2EBEABFB2ADDA04B00E70124 /* TransferrableCapsule.swift in Sources */,
 				2E46A2972AD47BA9009BCA6F /* Data.swift in Sources */,
 				2E5073FC2AD34DF2005214B6 /* FavouritesNavigationStack.swift in Sources */,
 				2EB954E32AD2D17B00327CFE /* AddCapsuleViewModel.swift in Sources */,
@@ -470,6 +476,7 @@
 				DEVELOPMENT_TEAM = UD7DDMT4QH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Encapsulate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -502,6 +509,7 @@
 				DEVELOPMENT_TEAM = UD7DDMT4QH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Encapsulate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
